@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>redirection #1</title>
+
+    <!-- Montserrat Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+    <link rel="icon" href="mydog.ico" type="image/x-icon"> <!-- Replace 'mydog.ico' with your favicon file -->
+
+    <style>
+        /* Full height and width layout */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden; /* Prevent scrollbars during progress bar animation */
+        }
+
+        .center-text {
+            font-size: 3em;
+            font-weight: 800;
+            text-align: center;
+            color: #333;
+            position: relative;
+        }
+
+        .icon-spot {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .icon-spot img {
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .bottom-left-text {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: 1.2em;
+            color: #333;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .progress-container {
+            margin-top: 20px;
+            display: none; /* Hidden until a button is clicked */
+            flex-direction: column;
+            align-items: center; /* Center the progress bar horizontally */
+        }
+
+        .progress-bar {
+            width: 70%; /* Adjust width to make it less wide */
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+            height: 30px; /* Increased height for a taller progress bar */
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0;
+            transition: width 0.1s linear;
+        }
+
+        .percentage {
+            margin-top: 5px;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        /* Button container */
+        .button-container {
+            display: flex;
+            flex-direction: column; /* Stack buttons vertically */
+            align-items: center; /* Center horizontally */
+            gap: 10px; /* Add space between buttons */
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            font-size: 1.5em;
+            font-weight: 800;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn.kahoot {
+            background: linear-gradient(45deg, #f0b, #f08);
+        }
+
+        .btn.quizlet {
+            background: linear-gradient(45deg, #12adea, #0891da);
+        }
+
+        /* Hover and click effects */
+        .btn:hover {
+            transform: scale(1.1);
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+    </style>
+
+    <script>
+        function startProgressBar(url, type) {
+            const progressBar = document.getElementById(type + '-progress');
+            const buttons = document.querySelector('.button-container');
+            const progressFill = progressBar.querySelector('.progress-bar-fill');
+            const percentageText = progressBar.querySelector('.percentage');
+
+            buttons.style.display = 'none'; // Hide buttons
+            progressBar.style.display = 'flex'; // Show the corresponding progress bar
+
+            let width = 0;
+            const interval = setInterval(() => {
+                width += 100 / 35; // Increment by 2.5% every 0.1 seconds
+                progressFill.style.width = `${width}%`;
+                percentageText.textContent = `${Math.round(width)}%`;
+
+                if (width >= 100) {
+                    clearInterval(interval);
+                    window.location.href = url;
+                }
+            }, 100);
+        }
+    </script>
+</head>
+<body>
+    <div class="center-text">
+        <h1>welcome! you should be redirected soon.</h1>
+        <div>
+            <h3>redirect: kahoot or quizlet</h3>
+        </div>
+        <!-- Buttons -->
+        <div class="button-container">
+            <button class="btn kahoot" onclick="startProgressBar('https://kahoot.it/solo/?quizId=99111945-f941-44e8-b862-94bdbc2ff7df', 'kahoot')">kahoot</button>
+            <button class="btn quizlet" onclick="startProgressBar('https://quizlet.com/942169516/travvy-study-guide-quizlet-topic-1-and-2-test-flash-cards/?funnelUUID=e9e2b963-7f35-46b7-8853-1f6064af0c1b', 'quizlet')">quizlet</button>
+        </div>
+
+        <!-- Kahoot Progress Bar -->
+        <div class="progress-container" id="kahoot-progress">
+            <div class="progress-bar">
+                <div class="progress-bar-fill" style="background: linear-gradient(to right, #f0b, #f08);"></div>
+            </div>
+            <div class="percentage">0%</div>
+        </div>
+
+        <!-- Quizlet Progress Bar -->
+        <div class="progress-container" id="quizlet-progress">
+            <div class="progress-bar">
+                <div class="progress-bar-fill" style="background: linear-gradient(to right, #12adea, #0891da);"></div>
+            </div>
+            <div class="percentage">0%</div>
+        </div>
+    </div>
+
+    <div class="icon-spot">
+        <img src="mellowv2.png" alt="Icon" width="100" height="100">
+    </div>
+
+    <div class="bottom-left-text">
+        <p>Made with ❤️ by Aryan J.</p>
+    </div>
+</body>
+</html>
